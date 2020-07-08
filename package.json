@@ -45,8 +45,5 @@
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
-  },
-  "resolutions": {
-    "@babel/core": "7.8.4"
   }
 }

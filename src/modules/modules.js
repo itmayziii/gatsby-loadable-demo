@@ -28,6 +28,7 @@ export function loadModules (modulesToLoad) {
 
 // Render the module with the HTML currently rendered from the static HTML file without importing the javascript.
 function staticRenderModule (index, htmlEl) {
+  console.log('STATIC RENDERING', index)
   return (
     <section
       key={index.toString()}
@@ -39,8 +40,7 @@ function staticRenderModule (index, htmlEl) {
 
 // Render the module with all the javascript.
 function renderModule (moduleFileName, module, index, fallback = null) {
-  console.log('RENDING MODULE', moduleFileName)
-  const ModuleComponent = loadable(() => import(`../modules/${moduleFileName}`))
+  const ModuleComponent = loadModule(moduleFileName)
   return (
     <ModuleComponent
       moduleIndex={index}
@@ -56,4 +56,15 @@ function getModule (moduleName) {
   }
 
   return appModules[moduleName]
+}
+
+function loadModule (moduleFileName) {
+  switch (moduleFileName) {
+    case 'module-one':
+      return loadable(() => import('../modules/module-one'))
+    case 'module-two':
+      return loadable(() => import('../modules/module-two'))
+    default:
+      throw new Error(`Could not find module to load: ${moduleFileName}`)
+  }
 }
